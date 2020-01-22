@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
 import Menu from './menu'
+import Review from './reviews'
 
 function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -18,6 +19,7 @@ function Restaurants(props) {
         onRestaurantChange={id => setActiveRestaurant(id)}
       />
       <Menu restaurant={activeRestaurant} />
+      <Review restaurant={activeRestaurant} />
     </div>
   )
 }

@@ -20,5 +20,4 @@ function Dish(props) {
     </div>
   )
 }
-
 export default Dish
