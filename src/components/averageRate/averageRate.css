@@ -1,0 +1,10 @@
+.rating {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid grey;
+  border-radius: 5px;
+  margin: 5px;
+}

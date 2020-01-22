@@ -1,11 +1,12 @@
 import React from 'react'
-import Menu from './menu'
-import Reviews from './reviews'
-import Rate from './averageRate'
+import Menu from '../menu/menu'
+import Reviews from '../reviews/reviews'
+import AverageRate from '../averageRate/averageRate'
+import './restaurant.css'
 const Restaurant = props => {
   return (
     <div>
-      <Rate reviews={props.restaurant.reviews} />
+      <AverageRate restaurant={props.restaurant} />
       <Menu menu={props.restaurant.menu} />
       <Reviews reviews={props.restaurant.reviews} />
     </div>
