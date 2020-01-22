@@ -1,0 +1,10 @@
+.ant-layout-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+button {
+  margin: 0 10px;
+}
