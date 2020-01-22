@@ -1,6 +1,8 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
-import Menu from './menu'
+import Restaurant from './restaurant/restaurant'
+
+import {Layout, Menu} from 'antd'
 
 function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -11,14 +13,29 @@ function Restaurants(props) {
       restaurant => restaurant.id === activeRestaurantId
     )
   }, [activeRestaurantId, props.restaurants])
+
+  const menuItems = props.restaurants.map(restaurant => (
+    <Menu.Item
+      key={restaurant.id}
+      onClick={() => setActiveRestaurant(restaurant.id)}
+    >
+      {restaurant.name}
+    </Menu.Item>
+  ))
+
   return (
-    <div>
-      <RestaurantsNavigation
-        restaurants={props.restaurants}
-        onRestaurantChange={id => setActiveRestaurant(id)}
-      />
-      <Menu restaurant={activeRestaurant} />
-    </div>
+    <React.Fragment>
+      <Layout>
+        <Menu theme="dark" mode="horizontal">
+          {menuItems}
+        </Menu>
+        {/*<RestaurantsNavigation*/}
+        {/*  restaurants={props.restaurants}*/}
+        {/*  onRestaurantChange={id => setActiveRestaurant(id)}*/}
+        {/*/>*/}
+        <Restaurant activeRestaurant={activeRestaurant} />
+      </Layout>
+    </React.Fragment>
   )
 }
 
