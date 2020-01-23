@@ -2,13 +2,8 @@ import React from 'react'
 import Dish from './dish'
 
 function Menu({menu}) {
-  return (
-    <div>
-      {menu.map(dish => (
-        <Dish key={dish.id} dish={dish} />
-      ))}
-    </div>
-  )
+  const menuView = menu.map(dish => <Dish key={dish.id} dish={dish} />)
+  return <React.Fragment>{menuView}</React.Fragment>
 }
 
 export default Menu

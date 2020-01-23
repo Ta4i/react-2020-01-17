@@ -1,20 +1,16 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
 import Restaurant from './restaurant/restaurant'
+import {Menu, Row} from 'antd'
 
-import {Layout, Menu} from 'antd'
-
-function Restaurants(props) {
-  const [activeRestaurantId, setActiveRestaurant] = useState(
-    props.restaurants[0].id
+function Restaurants({restaurants}) {
+  const [activeRestaurantId, setActiveRestaurant] = useState(restaurants[0].id)
+  const activeRestaurant = useMemo(
+    () => restaurants.find(restaurant => restaurant.id === activeRestaurantId),
+    [activeRestaurantId, restaurants]
   )
-  const activeRestaurant = useMemo(() => {
-    return props.restaurants.find(
-      restaurant => restaurant.id === activeRestaurantId
-    )
-  }, [activeRestaurantId, props.restaurants])
 
-  const menuItems = props.restaurants.map(restaurant => (
+  const menuItems = restaurants.map(restaurant => (
     <Menu.Item
       key={restaurant.id}
       onClick={() => setActiveRestaurant(restaurant.id)}
@@ -25,16 +21,19 @@ function Restaurants(props) {
 
   return (
     <React.Fragment>
-      <Layout>
+      <Row>
         <Menu theme="dark" mode="horizontal">
           {menuItems}
         </Menu>
-        {/*<RestaurantsNavigation*/}
-        {/*  restaurants={props.restaurants}*/}
-        {/*  onRestaurantChange={id => setActiveRestaurant(id)}*/}
-        {/*/>*/}
+      </Row>
+      <Row>
         <Restaurant activeRestaurant={activeRestaurant} />
-      </Layout>
+      </Row>
+      <Row>Footer</Row>
+      {/*<RestaurantsNavigation*/}
+      {/*  restaurants={props.restaurants}*/}
+      {/*  onRestaurantChange={id => setActiveRestaurant(id)}*/}
+      {/*/>*/}
     </React.Fragment>
   )
 }

@@ -3,9 +3,10 @@ import Restaurants from './restaurants'
 
 class App extends PureComponent {
   render() {
+    const {restaurants} = this.props
     return (
       <React.Fragment>
-        <Restaurants restaurants={this.props.restaurants} />
+        <Restaurants restaurants={restaurants} />
       </React.Fragment>
     )
   }

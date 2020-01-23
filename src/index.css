@@ -13,3 +13,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.myContent,
+.mySlider {
+  min-height: 100px;
+  background-color: lightblue;
+}
+.mySlider {
+  background-color: #a9d3ff;
+}
