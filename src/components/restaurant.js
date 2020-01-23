@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import Menu from './menu'
-import Reviews from './Reviews'
+import Reviews from './reviews'
 import {Rate} from 'antd'
 
 function Restaurant(props) {
