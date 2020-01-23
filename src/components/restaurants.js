@@ -1,24 +1,40 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
-import Menu from './menu'
+import Restaurant from './restaurant/restaurant'
+import {Menu, Row} from 'antd'
 
-function Restaurants(props) {
-  const [activeRestaurantId, setActiveRestaurant] = useState(
-    props.restaurants[0].id
+function Restaurants({restaurants}) {
+  const [activeRestaurantId, setActiveRestaurant] = useState(restaurants[0].id)
+  const activeRestaurant = useMemo(
+    () => restaurants.find(restaurant => restaurant.id === activeRestaurantId),
+    [activeRestaurantId, restaurants]
   )
-  const activeRestaurant = useMemo(() => {
-    return props.restaurants.find(
-      restaurant => restaurant.id === activeRestaurantId
-    )
-  }, [activeRestaurantId, props.restaurants])
+
+  const menuItems = restaurants.map(restaurant => (
+    <Menu.Item
+      key={restaurant.id}
+      onClick={() => setActiveRestaurant(restaurant.id)}
+    >
+      {restaurant.name}
+    </Menu.Item>
+  ))
+
   return (
-    <div>
-      <RestaurantsNavigation
-        restaurants={props.restaurants}
-        onRestaurantChange={id => setActiveRestaurant(id)}
-      />
-      <Menu restaurant={activeRestaurant} />
-    </div>
+    <React.Fragment>
+      <Row>
+        <Menu theme="dark" mode="horizontal">
+          {menuItems}
+        </Menu>
+      </Row>
+      <Row>
+        <Restaurant activeRestaurant={activeRestaurant} />
+      </Row>
+      <Row>Footer</Row>
+      {/*<RestaurantsNavigation*/}
+      {/*  restaurants={props.restaurants}*/}
+      {/*  onRestaurantChange={id => setActiveRestaurant(id)}*/}
+      {/*/>*/}
+    </React.Fragment>
   )
 }
 
