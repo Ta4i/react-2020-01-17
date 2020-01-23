@@ -1,0 +1,20 @@
+.Restaurant {
+  background-color: #f6fff6;
+  padding: 3em 4em;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.Restaurant .Reviews {
+  margin-top: 3em;
+}
+
+.Restaurant .rating {
+  float: right;
+}
+
+.Restaurant .rating p {
+  text-align: center;
+  margin-top: 0.5em;
+}
