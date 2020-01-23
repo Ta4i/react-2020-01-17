@@ -13,3 +13,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.app-wrapper {
+  width: 600px;
+  margin: 24px;
+}
+
+.restaurant__header {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.restaurant__title {
+  margin: 0;
+  margin-right: 16px;
+}
