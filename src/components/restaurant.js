@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import Menu from './menu'
 import Reviews from './reviews'
-import {Rate} from 'antd'
+import {Rate, Divider} from 'antd'
 
 const countAvgRating = reviews => {
   const avgRating =
@@ -16,8 +16,9 @@ const Restaurant = ({restaurant}) => {
 
   return (
     <div>
-      <Rate value={rating} allowHalf disabled />
+      Restaurant rating: <Rate value={rating} allowHalf disabled />
       <Menu menu={menu} />
+      <Divider />
       <Reviews reviews={reviews} />
     </div>
   )

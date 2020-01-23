@@ -1,6 +1,8 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
 import Restaurant from './restaurant'
+import {Layout} from 'antd'
+const {Header, Content} = Layout
 
 function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -13,11 +15,15 @@ function Restaurants(props) {
   }, [activeRestaurantId, props.restaurants])
   return (
     <div>
-      <RestaurantsNavigation
-        restaurants={props.restaurants}
-        onRestaurantChange={id => setActiveRestaurant(id)}
-      />
-      <Restaurant restaurant={activeRestaurant} />
+      <Header>
+        <RestaurantsNavigation
+          restaurants={props.restaurants}
+          onRestaurantChange={id => setActiveRestaurant(id)}
+        />
+      </Header>
+      <Content>
+        <Restaurant restaurant={activeRestaurant} />
+      </Content>
     </div>
   )
 }
