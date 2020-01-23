@@ -1,23 +1,23 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
-import Menu from './menu'
+import Restaurant from './restaurant'
 
-function Restaurants(props) {
+function Restaurants({restaurants}) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
-    props.restaurants[0].id
+    restaurants[0].id
   )
   const activeRestaurant = useMemo(() => {
-    return props.restaurants.find(
+    return restaurants.find(
       restaurant => restaurant.id === activeRestaurantId
     )
-  }, [activeRestaurantId, props.restaurants])
+  }, [activeRestaurantId, restaurants])
   return (
     <div>
       <RestaurantsNavigation
-        restaurants={props.restaurants}
+        restaurants={restaurants}
         onRestaurantChange={id => setActiveRestaurant(id)}
       />
-      <Menu restaurant={activeRestaurant} />
+      <Restaurant restaurant={activeRestaurant} />
     </div>
   )
 }
