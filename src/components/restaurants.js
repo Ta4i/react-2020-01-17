@@ -1,6 +1,9 @@
 import React, {useMemo, useState} from 'react'
 import RestaurantsNavigation from './restaurants-navigation'
-import Menu from './menu'
+import Restaurant from "./restaurant";
+import {Card, Layout} from 'antd';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -13,11 +16,21 @@ function Restaurants(props) {
   }, [activeRestaurantId, props.restaurants])
   return (
     <div>
-      <RestaurantsNavigation
-        restaurants={props.restaurants}
-        onRestaurantChange={id => setActiveRestaurant(id)}
-      />
-      <Menu restaurant={activeRestaurant} />
+        <Layout>
+            <Layout>
+                <Sider style={{ width: 500 }} >
+                    <RestaurantsNavigation
+                        restaurants={props.restaurants}
+                        onRestaurantChange={setActiveRestaurant}/>
+                </Sider>
+                <Content>
+                    <Restaurant restaurant={activeRestaurant}/>
+                </Content>
+            </Layout>
+        </Layout>
+
+
+
     </div>
   )
 }
