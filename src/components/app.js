@@ -4,7 +4,7 @@ import Restaurants from './restaurants'
 class App extends PureComponent {
   render() {
     return (
-      <div>
+      <div className="app-wrapper">
         <Restaurants restaurants={this.props.restaurants} />
       </div>
     )

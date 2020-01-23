@@ -1,17 +1,21 @@
 import React from 'react'
+import {Button} from 'antd'
 
 function RestaurantsNavigation(props) {
   return (
-    <div>
+    <div className="navigation">
+      <h1>Restaurants</h1>
       {props.restaurants.map(restaurant => (
-        <button
+        <Button
+          style={{marginLeft: '16px'}}
+          size="large"
           key={restaurant.id}
           onClick={() => {
             props.onRestaurantChange(restaurant.id)
           }}
         >
           {restaurant.name}
-        </button>
+        </Button>
       ))}
     </div>
   )
