@@ -1,0 +1,11 @@
+.Restaurants {
+  height: 100%;
+}
+
+.Restaurants .ant-layout-header {
+  height: auto;
+}
+
+.Restaurants .ant-layout-footer {
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+.Dish .counters button {
+  width: 50px;
+}
+.Dish .counters button:not(:first-child) {
+  margin-left: 1em;
+}
+
+.Dish .amount {
+  margin-top: 0.5em;
+}
