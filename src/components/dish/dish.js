@@ -60,6 +60,9 @@ Dish.defaultProps = {
   dish: {
     ingredients: [],
   },
+  amount: 0,
+  increase: () => {},
+  decrease: () => {},
 }
 
 Dish.propTypes = {
@@ -69,6 +72,9 @@ Dish.propTypes = {
     price: PropTypes.number.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  amount: PropTypes.number,
+  increase: PropTypes.func,
+  decrease: PropTypes.func,
 }
 
 export default counter(Dish)
