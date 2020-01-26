@@ -1,6 +1,7 @@
 import React from 'react'
 import Review from './review'
 import {Col, Row} from 'antd'
+import PropTypes from 'prop-types'
 
 function Reviews({reviews}) {
   return (
@@ -13,5 +14,7 @@ function Reviews({reviews}) {
     </Row>
   )
 }
-
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.object), //Ожидаем получить  массив объектов
+}
 export default Reviews
