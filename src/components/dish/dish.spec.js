@@ -21,4 +21,12 @@ describe('Dish', function() {
 
     expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('4')
   })
+
+  it('should decrease cart amount when click on minus button', function() {
+    const wrapper = mount(<Dish dish={dishMock} />)
+
+    wrapper.find('button[data-automation-id="DECREASE"]').simulate('click')
+
+    expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('0')
+  })
 })
