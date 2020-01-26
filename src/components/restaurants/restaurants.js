@@ -25,7 +25,11 @@ function Restaurants(props) {
 }
 
 Restaurants.propTypes = {
-  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
+  restaurants: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 }
 
 export default Restaurants
