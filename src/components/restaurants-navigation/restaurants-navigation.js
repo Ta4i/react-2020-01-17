@@ -1,7 +1,18 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import styles from './restaurants-navigation.module.css'
 
 class RestaurantsNavigation extends Component {
+  static propTypes = {
+    restaurants: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    onRestaurantChange: PropTypes.func.isRequired,
+  }
+
   render() {
     const {restaurants, onRestaurantChange} = this.props
     return (
