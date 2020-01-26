@@ -1,13 +1,14 @@
 import React, {useCallback, useMemo, useState} from 'react'
+import PropTypes from 'prop-types'
 import Restaurant from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
 
-function Restaurants(props) {
-  const [currentId, setCurrentId] = useState(props.restaurants[0].id)
+const Restaurants = ({restaurants}) => {
+  const [currentId, setCurrentId] = useState(restaurants[0].id)
 
   const restaurant = useMemo(() => {
-    return props.restaurants.find(restaurant => restaurant.id === currentId)
-  }, [currentId, props.restaurants])
+    return restaurants.find(restaurant => restaurant.id === currentId)
+  }, [currentId, restaurants])
 
   const handleRestaurantChange = useCallback(id => setCurrentId(id), [
     setCurrentId,
@@ -15,12 +16,21 @@ function Restaurants(props) {
   return (
     <div>
       <RestaurantsNavigation
-        restaurants={props.restaurants}
+        restaurants={restaurants}
         onRestaurantChange={handleRestaurantChange}
+        currentRestaurantId={currentId}
       />
       <Restaurant restaurant={restaurant} />
     </div>
   )
+}
+
+Restaurants.propTypes = {
+  restaurants: PropTypes.array.isRequired,
+}
+
+Restaurants.defaultProps = {
+  restaurants: [],
 }
 
 export default Restaurants

@@ -1,5 +1,5 @@
-// Decorator or HOC - higher order component
 import React from 'react'
+import PropTypes from 'prop-types'
 import {useAmount} from '../custom-hooks/use-amount'
 
 function counterDecorator(OriginalComponent) {
@@ -15,6 +15,18 @@ function counterDecorator(OriginalComponent) {
       />
     )
   }
+}
+
+counterDecorator.propTypes = {
+  amount: PropTypes.number.isRequired,
+  increase: PropTypes.func.isRequired,
+  decrease: PropTypes.func.isRequired,
+}
+
+counterDecorator.defaultProps = {
+  amount: 0,
+  increase: () => {},
+  decrease: () => {},
 }
 
 export default counterDecorator

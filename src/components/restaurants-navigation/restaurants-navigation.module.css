@@ -6,9 +6,13 @@
 
 .restaurant {
   padding: 6px 12px;
+  cursor: pointer;
+}
+.restaurant:hover {
+  color: #b3b797;
 }
 
 .active {
-  color: red;
-  border-bottom: 2px solid red;
+  color: #debb6c;
+  border-bottom: 2px solid #debb6c;
 }
