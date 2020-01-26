@@ -1,8 +1,13 @@
 import React from 'react'
-import Review from './review'
+import PropTypes from 'prop-types'
 import {Col, Row} from 'antd'
+import Review from './review'
 
-function Reviews({reviews}) {
+const Reviews = ({reviews}) => {
+  if (!reviews || !reviews.length) {
+    return null
+  }
+
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
@@ -12,6 +17,14 @@ function Reviews({reviews}) {
       </Col>
     </Row>
   )
+}
+
+Reviews.propTypes = {
+  reviews: PropTypes.array.isRequired,
+}
+
+Reviews.defaultProps = {
+  reviews: [],
 }
 
 export default Reviews

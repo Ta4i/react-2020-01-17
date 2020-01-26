@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Dishes from '../dishes'
 import AverageRating from '../average-rating'
 import Reviews from '../reviews'
@@ -22,16 +23,26 @@ class Restaurant extends Component {
     } = this.props
     return (
       <div data-automation-id="RESTAURANT_CONTAINER">
-        <Hero heading={name}>
-          <AverageRating reviews={reviews} />
-        </Hero>
-        <div className={styles.restaurantContent}>
-          <Reviews reviews={reviews} />
-          {!this.state.error && <Dishes menu={menu} />}
-        </div>
+        {this.state.error ? (
+          <p>Oooops... there's an error, we're already fixing it</p>
+        ) : (
+          <>
+            <Hero heading={name}>
+              <AverageRating reviews={reviews} />
+            </Hero>
+            <div className={styles.restaurantContent}>
+              <Reviews reviews={reviews} />
+              <Dishes menu={menu} />
+            </div>
+          </>
+        )}
       </div>
     )
   }
+}
+
+Restaurant.propTypes = {
+  restaurant: PropTypes.object.isRequired,
 }
 
 export default Restaurant
