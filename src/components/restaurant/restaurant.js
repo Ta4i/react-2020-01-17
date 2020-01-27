@@ -35,6 +35,13 @@ class Restaurant extends Component {
   }
 }
 Restaurant.propTypes = {
-  restaurant: PropTypes.object, //Ожидаем получить  объект
+  restaurant: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    location: PropTypes.object,
+    image: PropTypes.string,
+    menu: PropTypes.array,
+    reviews: PropTypes.array,
+  }).isRequired, //Ожидаем получить  объект c такой структурой
 }
 export default Restaurant

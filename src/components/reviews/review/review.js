@@ -2,7 +2,6 @@ import React from 'react'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
 import PropTypes from 'prop-types'
-import ReactWrapper from 'enzyme/src/ReactWrapper'
 
 const Review = ({review}) => (
   <Card className={styles.review}>
