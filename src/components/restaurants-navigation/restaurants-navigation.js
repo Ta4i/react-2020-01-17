@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import styles from './restaurants-navigation.module.css'
+import PropTypes from 'prop-types'
 
 class RestaurantsNavigation extends Component {
   render() {
@@ -20,5 +21,8 @@ class RestaurantsNavigation extends Component {
     )
   }
 }
-
+RestaurantsNavigation.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired, //Ожидаем получить  массив объектов
+  onRestaurantChange: PropTypes.func.isRequired,
+}
 export default RestaurantsNavigation

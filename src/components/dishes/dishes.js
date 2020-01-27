@@ -23,5 +23,8 @@ class Dishes extends Component {
 Dishes.defaultProps = {
   menu: [],
 }
+Dishes.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.object), //Ожидаем получить  массив объектов
+}
 
 export default Dishes
