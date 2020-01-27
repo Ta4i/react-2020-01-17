@@ -4,6 +4,8 @@ import DefaultHeroImg from './hero-banner.jpg'
 import styles from './hero.module.css'
 import {Typography} from 'antd'
 
+import PropTypes from 'prop-types';
+
 function Hero({img = DefaultHeroImg, heading, description, children}) {
   return (
     <div className={styles.hero}>
@@ -19,6 +21,11 @@ function Hero({img = DefaultHeroImg, heading, description, children}) {
       </div>
     </div>
   )
+}
+
+Hero.propTypes = {
+  children: PropTypes.element,
+  heading: PropTypes.string
 }
 
 export default Hero
