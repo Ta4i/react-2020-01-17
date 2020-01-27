@@ -3,8 +3,18 @@ import Dish from '../dish'
 import PropTypes from 'prop-types'
 
 class Dishes extends Component {
+  static defaultProps = {
+    menu: [],
+  }
   static propTypes = {
-    menu: PropTypes.array.isRequired,
+    menu: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        price: PropTypes.number,
+        ingredients: PropTypes.arrayOf(PropTypes.string),
+      })
+    ).isRequired,
   }
 
   render() {
@@ -18,10 +28,6 @@ class Dishes extends Component {
       </div>
     )
   }
-}
-
-Dishes.defaultProps = {
-  menu: [],
 }
 
 export default Dishes

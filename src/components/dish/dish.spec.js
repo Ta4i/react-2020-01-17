@@ -21,4 +21,24 @@ describe('Dish', function() {
 
     expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('4')
   })
+
+  describe('When click on minus button', function() {
+    const wrapper = mount(<Dish dish={dishMock} />)
+    const increaseButton = wrapper.find('button[data-automation-id="INCREASE"]')
+    const decreaseButton = wrapper.find('button[data-automation-id="DECREASE"]')
+    const amount = wrapper.find('[data-automation-id="AMOUNT"]')
+
+    it('should leave card amount as 0 if it was 0', function() {
+      decreaseButton.simulate('click')
+      decreaseButton.simulate('click')
+      expect(amount.text()).toBe('0')
+    })
+
+    it('should decrease card amount if it was more than 0', function() {
+      increaseButton.simulate('click')
+      increaseButton.simulate('click')
+      decreaseButton.simulate('click')
+      expect(amount.text()).toBe('1')
+    })
+  })
 })
