@@ -3,10 +3,6 @@ import Dish from '../dish'
 import PropTypes from 'prop-types'
 
 class Dishes extends Component {
-  static propTypes = {
-    menu: PropTypes.array.isRequired,
-  }
-
   render() {
     const {menu} = this.props
 
@@ -18,6 +14,10 @@ class Dishes extends Component {
       </div>
     )
   }
+}
+
+Dishes.propTypes = {
+  menu: PropTypes.array,
 }
 
 Dishes.defaultProps = {

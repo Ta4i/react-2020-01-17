@@ -21,4 +21,21 @@ describe('Dish', function() {
 
     expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('4')
   })
+
+  it('should increase cart amount when click on minus button after plus', function() {
+    const wrapper = mount(<Dish dish={dishMock} />)
+
+    wrapper
+      .find('button[data-automation-id="INCREASE"]')
+      .simulate('click')
+      .simulate('click')
+      .simulate('click')
+
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .simulate('click')
+      .simulate('click')
+
+    expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('1')
+  })
 })
