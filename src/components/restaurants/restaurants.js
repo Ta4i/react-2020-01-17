@@ -32,5 +32,4 @@ Restaurants.propTypes = {
 const mapStateToProps = state => ({
   restaurants: state.restaurants,
 })
-
 export default connect(mapStateToProps)(Restaurants)
