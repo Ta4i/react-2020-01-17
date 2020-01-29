@@ -1,12 +1,9 @@
 import React from 'react'
-import Enzyme, {mount} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import {mount} from 'enzyme'
 import Dish from './dish'
 import {restaurants} from '../../fixtures'
 
 const dishMock = restaurants[0].menu[0]
-
-Enzyme.configure({adapter: new Adapter()})
 
 describe('Dish', function() {
   it('should increase cart amount when click on plus button', function() {
@@ -20,5 +17,29 @@ describe('Dish', function() {
       .simulate('click')
 
     expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('4')
+  })
+
+  it('should decrease cart amount when click on minus button not lower than 0', function() {
+    const wrapper = mount(<Dish initialValue={3} dish={dishMock} />)
+
+    wrapper
+      .find('button[data-automation-id="INCREASE"]')
+      .simulate('click')
+      .simulate('click')
+      .simulate('click')
+
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .simulate('click')
+      .simulate('click')
+
+    expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('1')
+
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .simulate('click')
+      .simulate('click')
+
+    expect(wrapper.find('[data-automation-id="AMOUNT"]').text()).toBe('0')
   })
 })
