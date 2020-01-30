@@ -3,17 +3,11 @@ import PropTypes from 'prop-types'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import styles from './dish.module.css'
 import {connect} from 'react-redux'
-import {addToCart} from '../../store/action-creators'
+import addToCart from '../../store/action-creators/add-to-cart'
+import removeFromCart from '../../store/action-creators/remove-from-cart'
 
 function Dish(props) {
-  const {
-    dish,
-
-    // from store
-    amount,
-    increase,
-    decrease,
-  } = props
+  const {dish, amount, increase, decrease} = props
 
   return (
     <Card className={styles.productDetailedOrderCard}>
@@ -58,12 +52,17 @@ function Dish(props) {
 }
 
 export const DishProps = {
+  // passed
   dish: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
     ingredients: PropTypes.arrayOf(PropTypes.string),
     price: PropTypes.number,
   }),
+  // connect
+  amount: PropTypes.number,
+  increase: PropTypes.func,
+  decrease: PropTypes.func,
 }
 
 Dish.propTypes = DishProps
@@ -76,6 +75,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   increase: id => dispatch(addToCart(id)),
+  decrease: id => dispatch(removeFromCart(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dish)

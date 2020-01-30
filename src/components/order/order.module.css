@@ -1,0 +1,7 @@
+.orderItems *:not(:first-child) {
+  margin-top: 1em;
+}
+
+.orderTotalCost {
+  margin-top: 2em;
+}
