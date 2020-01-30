@@ -1,0 +1,11 @@
+.price {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: #de9124;
+}
+.modalContainer {
+  max-height: 400px;
+  overflow-y: auto;
+}
