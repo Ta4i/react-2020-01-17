@@ -1,0 +1,27 @@
+.title {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.price {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  color: #de9124;
+}
+
+.counter {
+  padding: 5px;
+  text-align: center;
+  display: inline-block;
+}
+
+.count {
+  color: #898989 !important;
+  margin-bottom: 5px;
+  font-size: 18px;
+  line-height: 28px;
+}
