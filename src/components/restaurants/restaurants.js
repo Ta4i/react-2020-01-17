@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Restaurant, {RestaurantProps} from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
 import {connect} from 'react-redux'
+import Order from '../order'
 
 function Restaurants(props) {
   const [currentId, setCurrentId] = useState(props.restaurants[0].id)
@@ -21,6 +22,7 @@ function Restaurants(props) {
         onRestaurantChange={handleRestaurantChange}
       />
       <Restaurant restaurant={restaurant} />
+      <Order />
     </div>
   )
 }
