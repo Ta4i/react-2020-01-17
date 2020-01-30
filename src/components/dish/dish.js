@@ -15,7 +15,7 @@ function Dish(props) {
     increase,
     decrease,
   } = props
-
+  console.log('amount => ', !!amount)
   return (
     <Card className={styles.productDetailedOrderCard}>
       <Row type="flex" justify="space-between">
@@ -39,6 +39,7 @@ function Dish(props) {
             </div>
             <Button.Group>
               <Button
+                disabled={!amount}
                 className={styles.button}
                 icon="minus"
                 onClick={() => decrease(dish.id)}
