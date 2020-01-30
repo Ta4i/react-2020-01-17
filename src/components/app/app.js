@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import Restaurants from '../restaurants'
+import Order from '../order'
 import {Layout} from 'antd'
 import Header from '../header'
 import {store} from '../../store'
@@ -14,6 +15,7 @@ class App extends Component {
             <Header />
             <Layout.Content>
               <Restaurants />
+              <Order />
             </Layout.Content>
           </Layout>
         </div>
