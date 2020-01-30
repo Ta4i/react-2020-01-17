@@ -69,6 +69,7 @@ export const DishProps = {
 Dish.propTypes = DishProps
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state.cart)
   return {
     amount: state.cart[ownProps.dish.id] || 0,
   }

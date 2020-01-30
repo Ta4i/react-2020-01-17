@@ -15,3 +15,12 @@ export const removeFromCard = id => {
     },
   }
 }
+
+export const transformModal = isVisible => {
+  return {
+    type: 'TRANSFORM_MODAL',
+    payload: {
+      isVisible,
+    },
+  }
+}
