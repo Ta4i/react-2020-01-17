@@ -15,3 +15,15 @@ export const removeFromCart = id => {
     },
   }
 }
+
+export const showOrders = () => {
+  return {
+    type: 'SHOW_ORDERS',
+  }
+}
+
+export const hideOrders = () => {
+  return {
+    type: 'HIDE_ORDERS',
+  }
+}
