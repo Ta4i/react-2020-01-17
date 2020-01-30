@@ -6,3 +6,12 @@ export const addToCart = id => {
     },
   }
 }
+
+export const removeFromCard = id => {
+  return {
+    type: 'REMOVE_FROM_CART',
+    payload: {
+      id,
+    },
+  }
+}
