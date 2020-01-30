@@ -1,0 +1,24 @@
+.orderComponent {
+  height: 100%;
+  width: 300px;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  padding: 10px;
+
+  background-color: rgb(46, 83, 4);
+  color: rgb(235, 225, 225);
+}
+
+.orderComponentShown {
+  display: block;
+}
+
+.orderComponentHidden {
+  display: none;
+}
+
+.backButton {
+  cursor: pointer;
+}
