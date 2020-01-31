@@ -4,6 +4,7 @@ import Restaurants from '../restaurants'
 import {Layout} from 'antd'
 import Header from '../header'
 import {store} from '../../store'
+import Order from '../order/'
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
               <Restaurants />
             </Layout.Content>
           </Layout>
+          <Order />
         </div>
       </Provider>
     )

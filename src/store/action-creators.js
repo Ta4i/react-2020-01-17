@@ -6,3 +6,12 @@ export const addToCart = id => {
     },
   }
 }
+
+export const deleteToCart = id => {
+  return {
+    type: 'DELETE_FROM_CART',
+    payload: {
+      id,
+    },
+  }
+}
