@@ -11,15 +11,17 @@ export const cartReducer = (cartState = {}, action) => {
     }
     case ACTION_TYPES.REMOVE_FROM_CART: {
       const {id} = action.payload
-      const newState = {...cartState}
-      if (Number.isInteger(newState[id])) {
+
+      if (Number.isInteger(cartState[id])) {
+        const newState = {...cartState}
         if (newState[id] === 1) {
           delete newState[id]
         } else {
           newState[id]--
         }
+        return newState
       }
-      return newState
+      return cartState
     }
     default:
       return cartState
