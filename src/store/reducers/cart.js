@@ -10,9 +10,14 @@ export const cartReducer = (cartState = {}, action) => {
 
     case 'REMOVE_FROM_CART': {
       const {id} = action.payload
+      if (!cartState[id]) return cartState
+      if (cartState[id] === 1) {
+        delete cartState[id]
+        return cartState
+      }
       return {
         ...cartState,
-        [id]: cartState[id] ? cartState[id] - 1 : 0,
+        [id]: cartState[id] - 1,
       }
     }
 
