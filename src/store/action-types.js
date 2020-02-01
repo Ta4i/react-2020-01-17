@@ -2,9 +2,6 @@ const ACTION_TYPES = {
   // cart
   ADD_TO_CART: 'ADD_TO_CART',
   REMOVE_FROM_CART: 'REMOVE_FROM_CART',
-  // order
-  SHOW_ORDER: 'SHOW_ORDER',
-  HIDE_ORDER: 'HIDE_ORDER',
 }
 
 export default ACTION_TYPES

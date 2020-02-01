@@ -1,25 +1,37 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Badge, Button} from 'antd'
+import {Badge, Button, Modal} from 'antd'
 import styles from './cart-badge.module.css'
-import {useSelector, useDispatch} from 'react-redux'
-import showOrder from '../../store/action-creators/show-order'
+import {useSelector} from 'react-redux'
+import Order from '../order'
 
 function CartBadge() {
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const cart = useSelector(state => state.cart)
+
   const amount = useSelector(state =>
     Object.values(state.cart).reduce((acc, count) => acc + count, 0)
   )
 
-  const dispatch = useDispatch()
-
   return (
     <Badge count={amount} className={styles.cartButtonContainer}>
+      <Modal
+        title="Order"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        style={{minWidth: '65%'}}
+        footer={null}
+      >
+        <Order cart={cart} />
+      </Modal>
+
       <Button
         icon="shopping-cart"
         size="large"
         type="primary"
         className={styles.cartButton}
-        onClick={() => dispatch(showOrder())}
+        onClick={() => setModalVisible(true)}
       />
     </Badge>
   )
