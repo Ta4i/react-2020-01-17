@@ -15,21 +15,21 @@ function Order({className, orderedDishes}) {
   if (dishes.length === 0) {
     return null
   }
-  console.log('Order render', className, orderedDishes)
   return (
     <div className={cx(styles.cart, className)}>
       <TransitionGroup>
-        {dishes.map(({dish, amount, restaurant}) => (
+        {dishes.map(({dishId, dishName, price, amount}) => (
           <CSSTransition
             timeout={500}
             classNames="cart-item-animation"
-            key={dish.id}
+            key={dishId}
           >
             <CartItem
-              dish={dish}
+              dishId={dishId}
+              dishName={dishName}
+              price={price}
               amount={amount}
-              restaurant={restaurant}
-              key={dish.id}
+              key={dishId}
             />
           </CSSTransition>
         ))}

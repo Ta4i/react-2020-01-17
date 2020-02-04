@@ -8,6 +8,16 @@ export const selectRestaurantList = state => state.restaurants
 
 export const selectDishes = state => state.dishes
 
+export const selectReviews = state => state.reviews
+
+// export const selectReview = createSelector(
+//     selectReviews,
+//     selectId,
+//     (reviews, id) => {
+//         return reviews[id]
+//     }
+// )
+
 export const selectDish = createSelector(
   selectDishes,
   selectId,
@@ -27,16 +37,21 @@ export const selectAmountFromCart = createSelector(
 export const selectCartInfo = createSelector(
   selectCart,
   selectRestaurantList,
-  (cart, restaurants) => {
+  selectDishes,
+  (cart, restaurants, dishes) => {
     const orderedDishes = restaurants.reduce(
       (result, restaurant) => {
-        restaurant.menu.forEach(dish => {
-          const amount = cart[dish.id]
+        restaurant.menu.forEach(dishId => {
+          const amount = cart[dishId]
           if (amount) {
-            const totalDishPrice = amount * dish.price
+            const totalDishPrice = amount * dishes[dishId].price
+            const dishName = dishes[dishId].name
+            const price = dishes[dishId].price
             result.totalPrice += totalDishPrice
             result.dishes.push({
-              dish,
+              dishId,
+              dishName,
+              price,
               amount,
               totalDishPrice,
             })
@@ -49,7 +64,6 @@ export const selectCartInfo = createSelector(
         totalPrice: 0,
       }
     )
-
     return {
       orderedDishes,
     }
