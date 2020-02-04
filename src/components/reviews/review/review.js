@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
+import {selectReview, selectUser} from '../../../store/selectors'
 
-const Review = ({review}) => (
+const Review = ({id, review, user}) => (
   <Card className={styles.review}>
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
@@ -12,7 +14,7 @@ const Review = ({review}) => (
           className={styles.name}
           level={4}
         >
-          {review.user}
+          {user.name}
         </Typography.Title>
         <Typography.Text
           data-automation-id="REVIEW_TEXT"
@@ -29,11 +31,26 @@ const Review = ({review}) => (
 )
 
 export const ReviewProps = {
-  user: PropTypes.string,
-  text: PropTypes.string,
-  rating: PropTypes.number,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  review: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string,
+    userId: PropTypes.string,
+    rating: PropTypes.number,
+  }),
+  id: PropTypes.string,
 }
 
 Review.propTypes = ReviewProps
 
-export default Review
+const mapStateToProps = (state, ownProps) => {
+  return {
+    review: selectReview(state, ownProps),
+    user: selectUser(state, ownProps),
+  }
+}
+
+export default connect(mapStateToProps)(Review)
