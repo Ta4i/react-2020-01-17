@@ -35,7 +35,7 @@ class Restaurant extends Component {
     } = this.props
     return (
       <div data-automation-id="RESTAURANT_CONTAINER">
-        <Hero heading={name}>{/*<AverageRating reviews={reviews} />*/}</Hero>
+        <Hero heading={name}>{/* <AverageRating reviews={reviews} /> */}</Hero>
         <Row>
           <Col span={18} className={styles.restaurantContent}>
             <Reviews reviews={reviews} />
