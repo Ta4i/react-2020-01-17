@@ -2,23 +2,26 @@ import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import styles from './dish.module.css'
-import {connect, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {addToCart, removeFromCart} from '../../store/action-creators'
-import {selectAmountFromCart, selectDish} from '../../store/selectors'
+import {selectAmountFromCart} from '../../store/selectors/cart'
+import {selectDish} from '../../store/selectors/dishes'
 
 function Dish(props) {
-  const {
-    id,
-
-    // from store
-    amount,
-    increase,
-    decrease,
-  } = props
-
+  const {id} = props
   const selectDishMemo = useCallback(state => selectDish(state, props), [props])
-
   const dish = useSelector(selectDishMemo)
+  const selectAmountMemo = useCallback(
+    state => selectAmountFromCart(state, props),
+    [props]
+  )
+  const amount = useSelector(selectAmountMemo)
+  const dispatch = useDispatch()
+  const increase = useCallback(() => dispatch(addToCart(id)), [dispatch, id])
+  const decrease = useCallback(() => dispatch(removeFromCart(id)), [
+    dispatch,
+    id,
+  ])
 
   return (
     <Card className={styles.productDetailedOrderCard}>
@@ -45,13 +48,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="minus"
-                onClick={() => decrease(dish.id)}
+                onClick={decrease}
                 data-automation-id="DECREASE"
               />
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={() => increase(dish.id)}
+                onClick={increase}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
@@ -62,27 +65,8 @@ function Dish(props) {
   )
 }
 
-export const DishProps = {
+Dish.propTypes = {
   id: PropTypes.string.isRequired,
-  dish: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    price: PropTypes.number,
-  }),
 }
 
-Dish.propTypes = DishProps
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    amount: selectAmountFromCart(state, ownProps),
-  }
-}
-
-const mapDispatchToProps = {
-  increase: addToCart,
-  decrease: removeFromCart,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dish)
+export default Dish

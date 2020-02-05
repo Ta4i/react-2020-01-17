@@ -1,16 +1,4 @@
-import {ADD_TO_CART, DECREMENT, INCREMENT, REMOVE_FROM_CART} from '../common'
-
-export const increment = () => {
-  return {
-    type: INCREMENT,
-  }
-}
-
-export const decrement = () => {
-  return {
-    type: DECREMENT,
-  }
-}
+import {ADD_TO_CART, REMOVE_FROM_CART, ADD_REVIEW} from '../common'
 
 export const addToCart = dishId => {
   return {
@@ -26,6 +14,17 @@ export const removeFromCart = dishId => {
     type: REMOVE_FROM_CART,
     payload: {
       id: dishId,
+    },
+  }
+}
+
+export const addReview = (reviewData, userData, restaurantId) => {
+  return {
+    type: ADD_REVIEW,
+    payload: {
+      reviewData,
+      userData,
+      restaurantId,
     },
   }
 }
