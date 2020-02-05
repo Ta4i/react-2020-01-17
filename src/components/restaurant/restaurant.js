@@ -7,7 +7,6 @@ import Hero from '../hero'
 import styles from './restaurant.module.css'
 import {Col, Row} from 'antd'
 import Order from '../order'
-import Logo from '../header/logo'
 
 export const RestaurantProps = {
   restaurant: PropTypes.shape({

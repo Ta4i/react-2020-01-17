@@ -9,7 +9,7 @@ export const restaurantsReducer = (
     case ADD_REVIEW_TO_RESTAURANT:
       for (let el of restaurantsState) {
         if (el.id === action.payload.restaurantId) {
-          el.reviews.push(action.payload.reviewId)
+          el.reviews.push(action.payload.id)
         }
       }
       return [...restaurantsState]

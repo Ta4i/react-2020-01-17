@@ -12,32 +12,22 @@ import {selectUsers} from '../../store/selectors'
 
 class ReviewForm extends Component {
   state = {
-    id: '',
-    userId: '',
     text: '',
     rating: null,
     userName: '',
+    restaurantId: '',
   }
 
   onChangeHandler = (event, type) => {
-    this.setState({
-      userId: this.generateId(),
-      id: this.generateId(),
-    })
-
     if (type === 'textArea') {
       this.setState({
         text: event.target.value,
       })
     }
     if (type === 'userName') {
-      let name = []
-      for (let key in this.props.users) {
-        name.push(key[name])
-      }
-      console.log(name)
       this.setState({
         userName: event.target.value,
+        restaurantId: this.props.currentRest,
       })
     } else if (type === 'rating') {
       this.setState({
@@ -60,30 +50,13 @@ class ReviewForm extends Component {
   handleSubmit = event => {
     event.preventDefault()
     event.persist()
-    this.props.addReviewToList({
-      id: this.state.id,
-      userId: this.state.userId,
-      text: this.state.text,
-      rating: this.state.rating,
-    })
-    this.props.addUser({id: this.state.userId, userName: this.state.userName})
-    this.props.addReviewToRestaurant({
-      reviewId: this.state.id,
-      restaurantId: this.props.currentRest,
-    })
+    this.props.addReviewToList(this.state)
+    this.props.addUser(this.state)
+    this.props.addReviewToRestaurant(this.state)
     this.clearForm()
   }
 
-  generateId = () =>
-    ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      (
-        c ^
-        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)
-    )
-
   render() {
-    console.log('users->', this.props.users)
     return (
       <Card className={styles.reviewForm}>
         <Row type="flex" align="middle">
@@ -128,7 +101,6 @@ class ReviewForm extends Component {
   }
 }
 const mapStateToProps = state => ({
-  // reviews: selectReviews(state),
   users: selectUsers(state),
 })
 const mapDispatchToProps = dispatch => {

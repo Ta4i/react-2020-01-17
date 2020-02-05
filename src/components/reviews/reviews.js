@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import Review, {ReviewProps} from './review'
 import {Col, Row} from 'antd'
 import ReviewForm from '../review-form'
-import {selectReviews} from '../../store/selectors'
-import {logging} from '../../store/middlewares/logging'
 
 function Reviews({reviews = [], currentRest}) {
   return (
@@ -13,7 +11,7 @@ function Reviews({reviews = [], currentRest}) {
         {reviews.map(review => (
           <Review review={review} key={review.id} />
         ))}
-        <ReviewForm id={''} currentRest={currentRest} />
+        <ReviewForm currentRest={currentRest} />
       </Col>
     </Row>
   )

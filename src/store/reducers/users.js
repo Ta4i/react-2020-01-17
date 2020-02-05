@@ -9,19 +9,10 @@ const initialState = normalizedUsers.reduce((reviews, review) => {
 }, {})
 
 export const usersReducer = (usersState = initialState, action) => {
-  let x
   switch (action.type) {
     case ADD_USER:
-      // for (let key in usersState){
-      //     console.log(usersState[key].name);
-      //     if (usersState[key].name === action.payload.userName){
-      //
-      //     }else{
-      //         x
-      //     }
-      // }
-      usersState[action.payload.id] = {
-        id: action.payload.id,
+      usersState[action.payload.userId] = {
+        id: action.payload.userId,
         name: action.payload.userName,
       }
       return {...usersState}

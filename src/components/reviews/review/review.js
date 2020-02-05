@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
 import {selectUsers} from '../../../store/selectors'
-import {logging} from '../../../store/middlewares/logging'
 
 const Review = props => (
   <Card className={styles.review}>
