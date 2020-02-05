@@ -4,6 +4,7 @@ import Restaurants from '../restaurants'
 import {Layout} from 'antd'
 import Header from '../header'
 import {store} from '../../store'
+import Order from '../order/order'
 
 class App extends Component {
   render() {
