@@ -1,23 +1,17 @@
-import React, {Component} from 'react'
-import Dish, {DishProps} from '../dish'
+import React from 'react'
+import Dish from '../dish'
 import PropTypes from 'prop-types'
 
-class Dishes extends Component {
-  static propTypes = {
-    menu: PropTypes.arrayOf(PropTypes.shape(DishProps)).isRequired,
-  }
+const Dishes = ({menu}) => (
+  <div>
+    {menu.map(dishId => (
+      <Dish key={dishId} id={dishId} />
+    ))}
+  </div>
+)
 
-  render() {
-    const {menu} = this.props
-
-    return (
-      <div>
-        {menu.map(dishId => (
-          <Dish key={dishId} id={dishId} />
-        ))}
-      </div>
-    )
-  }
+Dishes.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 Dishes.defaultProps = {

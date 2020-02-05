@@ -1,6 +1,7 @@
 import Button from 'antd/es/button'
 import cx from 'classnames'
 import React from 'react'
+import PropTypes from 'prop-types'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 import styles from './order.module.css'
@@ -8,16 +9,17 @@ import CartRow from './cart-row'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
 import './order.css'
-import {selectCartInfo} from '../../store/selectors'
+import {selectCartInfo} from '../../store/selectors/cart'
 
-function Order({className, orderedDishes}) {
-  const {dishes, totalPrice} = orderedDishes
+function Order(props) {
+  const {dishes, totalPrice} = props.orderedDishes
+
   if (dishes.length === 0) {
     return null
   }
-  console.log('Order render', className, orderedDishes)
+
   return (
-    <div className={cx(styles.cart, className)}>
+    <div className={cx(styles.cart)}>
       <TransitionGroup>
         {dishes.map(({dish, amount, restaurant}) => (
           <CSSTransition
@@ -46,6 +48,12 @@ function Order({className, orderedDishes}) {
   )
 }
 
-export default connect(state => ({
+Order.propTypes = {
+  orderedDishes: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
   orderedDishes: selectCartInfo(state).orderedDishes,
-}))(Order)
+})
+
+export default connect(mapStateToProps)(Order)

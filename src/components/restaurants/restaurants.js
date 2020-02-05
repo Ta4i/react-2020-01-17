@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Restaurant, {RestaurantProps} from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
 import {connect} from 'react-redux'
-import {selectRestaurantList} from '../../store/selectors'
+import {selectRestaurantList} from '../../store/selectors/restaurants'
 
 function Restaurants(props) {
   const [currentId, setCurrentId] = useState(props.restaurants[0].id)

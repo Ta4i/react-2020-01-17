@@ -1,20 +1,9 @@
 import {createSelector} from 'reselect'
-
-export const selectId = (state, ownProps) => ownProps.id
+import {selectId} from './common'
+import {selectRestaurantList} from './restaurants'
+import {selectDishes} from './dishes'
 
 export const selectCart = state => state.cart
-
-export const selectRestaurantList = state => state.restaurants
-
-export const selectDishes = state => state.dishes
-
-export const selectDish = createSelector(
-  selectDishes,
-  selectId,
-  (dishes, id) => {
-    return dishes[id]
-  }
-)
 
 export const selectAmountFromCart = createSelector(
   selectCart,
@@ -27,13 +16,16 @@ export const selectAmountFromCart = createSelector(
 export const selectCartInfo = createSelector(
   selectCart,
   selectRestaurantList,
-  (cart, restaurants) => {
+  selectDishes,
+  (cart, restaurants, dishes) => {
     const orderedDishes = restaurants.reduce(
       (result, restaurant) => {
-        restaurant.menu.forEach(dish => {
-          const amount = cart[dish.id]
+        restaurant.menu.forEach(dishId => {
+          const amount = cart[dishId]
           if (amount) {
-            const totalDishPrice = amount * dish.price
+            const dish = dishes[dishId]
+            result.totalAmount += amount
+            const totalDishPrice = dish.price * amount
             result.totalPrice += totalDishPrice
             result.dishes.push({
               dish,
@@ -45,11 +37,11 @@ export const selectCartInfo = createSelector(
         return result
       },
       {
-        dishes: [],
+        totalAmount: 0,
         totalPrice: 0,
+        dishes: [],
       }
     )
-
     return {
       orderedDishes,
     }
