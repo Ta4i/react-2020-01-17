@@ -28,7 +28,11 @@ function Restaurants(props) {
         restaurants={props.restaurants}
         onRestaurantChange={handleRestaurantChange}
       />
-      <Restaurant restaurant={restaurant} reviews={currentReviews} />
+      <Restaurant
+        restaurant={restaurant}
+        reviews={currentReviews}
+        currentRest={currentId}
+      />
     </div>
   )
 }

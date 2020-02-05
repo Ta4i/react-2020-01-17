@@ -10,13 +10,7 @@ export const selectDishes = state => state.dishes
 
 export const selectReviews = state => state.reviews
 
-// export const selectReview = createSelector(
-//     selectReviews,
-//     selectId,
-//     (reviews, id) => {
-//         return reviews[id]
-//     }
-// )
+export const selectUsers = state => state.users
 
 export const selectDish = createSelector(
   selectDishes,
