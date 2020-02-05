@@ -1,4 +1,5 @@
 import {normalizedReviews} from '../../fixtures'
+import {PUBLISH_REVIEW} from '../common'
 
 const initialReviews = normalizedReviews.reduce((reviews, review) => {
   return {
@@ -8,5 +9,14 @@ const initialReviews = normalizedReviews.reduce((reviews, review) => {
 }, {})
 
 export const reviewsReducer = (reviewsState = initialReviews, action) => {
-  return reviewsState
+  switch (action.type) {
+    case PUBLISH_REVIEW:
+      const newUser = action.payload
+      return {
+        ...reviewsState,
+        ...newUser,
+      }
+    default:
+      return reviewsState
+  }
 }

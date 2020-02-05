@@ -5,3 +5,11 @@ export const DECREMENT = 'DECREMENT'
 export const ADD_TO_CART = 'ADD_TO_CART'
 
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+
+export const CHANGE_RESTAURANT = 'CHANGE_RESTAURANT'
+
+export const PUBLISH_REVIEW = 'PUBLISH_REVIEW'
+
+export const UPDATE_RESTAURANTS = 'UPDATE_RESTAURANTS'
+
+export const ADD_USER = 'ADD_USER'

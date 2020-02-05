@@ -14,6 +14,8 @@ export const selectReviews = state => state.reviews
 
 export const selectUsers = state => state.users
 
+export const selectRestaurantId = state => state.currentRestaurantId
+
 export const selectDish = createSelector(
   selectDishes,
   selectId,
@@ -83,5 +85,20 @@ export const selectAverageRating = createSelector(
       ratings.reduce((acc, rating) => acc + rating, 0) / ratings.length
     const normalizedRating = Math.floor(averageRating * 2) / 2
     return normalizedRating
+  }
+)
+
+export const selectRestaurant = createSelector(
+  selectRestaurantList,
+  selectId,
+  (restaurants, id) => {
+    const restaurantsMap = restaurants.reduce(
+      (acc, restaurant) => ({
+        ...acc,
+        [restaurant.id]: restaurant,
+      }),
+      {}
+    )
+    return restaurantsMap[id]
   }
 )

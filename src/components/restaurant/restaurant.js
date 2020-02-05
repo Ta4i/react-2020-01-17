@@ -7,6 +7,8 @@ import Hero from '../hero'
 import styles from './restaurant.module.css'
 import {Col, Row} from 'antd'
 import Order from '../order'
+import {selectRestaurant} from '../../store/selectors'
+import {connect} from 'react-redux'
 
 export const RestaurantProps = {
   restaurant: PropTypes.shape({
@@ -33,6 +35,7 @@ class Restaurant extends Component {
     const {
       restaurant: {name, menu, reviews},
     } = this.props
+
     return (
       <div data-automation-id="RESTAURANT_CONTAINER">
         <Hero heading={name}>
@@ -52,4 +55,10 @@ class Restaurant extends Component {
   }
 }
 
-export default Restaurant
+const mapStateToProps = (state, ownProps) => {
+  return {
+    restaurant: selectRestaurant(state, ownProps),
+  }
+}
+
+export default connect(mapStateToProps)(Restaurant)
