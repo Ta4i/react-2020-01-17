@@ -1,11 +1,16 @@
 import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {Rate} from 'antd'
+import {useSelector} from 'react-redux'
+import {selectReviews} from '../../store/selectors'
 
-function AverageRating({reviews}) {
+function AverageRating({reviewsList}) {
+  const reviews = useSelector(selectReviews)
   const rawRating = useMemo(
-    () => reviews.reduce((acc, {rating}) => acc + rating, 0) / reviews.length,
-    [reviews]
+    () =>
+      reviewsList.reduce((acc, id) => acc + reviews[id].rating, 0) /
+      reviewsList.length,
+    [reviewsList, reviews]
   )
 
   const normalizedRating = Math.floor(rawRating * 2) / 2
@@ -17,11 +22,7 @@ function AverageRating({reviews}) {
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      rating: PropTypes.number,
-    })
-  ).isRequired,
+  reviewsList: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default AverageRating

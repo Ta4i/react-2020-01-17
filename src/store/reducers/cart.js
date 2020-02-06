@@ -16,13 +16,17 @@ export const cartReducer = (
     }
     case REMOVE_FROM_CART: {
       const {id} = action.payload
+      const amount = cartState[id] - 1
+      const newCartState = {...cartState}
       if (!cartState[id]) {
         return cartState
       }
-      return {
-        ...cartState,
-        [id]: cartState[id] - 1,
+      if (amount > 0) {
+        newCartState[id] = amount
+      } else {
+        delete newCartState[id]
       }
+      return newCartState
     }
     default: {
       return cartState
