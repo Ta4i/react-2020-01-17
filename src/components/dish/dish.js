@@ -8,8 +8,6 @@ import {selectAmountFromCart, selectDish} from '../../store/selectors'
 
 function Dish(props) {
   const {
-    id,
-
     // from store
     amount,
     increase,
@@ -64,12 +62,6 @@ function Dish(props) {
 
 export const DishProps = {
   id: PropTypes.string.isRequired,
-  dish: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    price: PropTypes.number,
-  }),
 }
 
 Dish.propTypes = DishProps

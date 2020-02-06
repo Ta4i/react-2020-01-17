@@ -1,14 +1,44 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
-import React from 'react'
+import React, {useState} from 'react'
 import cx from 'classnames'
+import {publishReview} from '../../store/action-creators'
 
 import styles from './review-form.module.css'
+import {selectRestaurantId} from '../../store/selectors'
+import {useSelector, useDispatch} from 'react-redux'
 
-const ReviewForm = ({id}) => {
-  const handleSubmit = event => {
-    event.preventDefault()
-    event.persist()
-    console.log('Submit', event)
+const ReviewForm = () => {
+  const restaurantId = useSelector(state => selectRestaurantId(state))
+  const [nameValue, setNameValue] = useState('')
+  const [textValue, setTextValue] = useState('')
+  const [rateValue, setRateValue] = useState(0)
+
+  const dispatch = useDispatch()
+  const handleSubmit = e => {
+    e.preventDefault()
+    return (
+      dispatch(
+        publishReview({
+          restaurantId,
+          user: nameValue,
+          comment: textValue,
+          rate: rateValue,
+        })
+      ),
+      [dispatch, nameValue, rateValue, restaurantId, textValue]
+    )
+  }
+
+  const onTextAreaChange = e => {
+    setTextValue(e.target.value)
+  }
+
+  const onRateChange = value => {
+    setRateValue(value)
+  }
+
+  const onInputBlur = e => {
+    setNameValue(e.target.value)
   }
 
   return (
@@ -19,10 +49,14 @@ const ReviewForm = ({id}) => {
             Leave your review
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
-            <Input placeholder="Your name" className={cx(styles.inputName)} />
-            <Input.TextArea rows={3} size="large" />
+            <Input
+              placeholder="Your name"
+              className={cx(styles.inputName)}
+              onBlur={onInputBlur}
+            />
+            <Input.TextArea rows={3} size="large" onChange={onTextAreaChange} />
             <div>
-              Rating: <Rate value={0} />
+              Rating: <Rate value={rateValue} onChange={onRateChange} />
             </div>
             <Button htmlType="submit" className={styles.submitButton}>
               PUBLISH REVIEW

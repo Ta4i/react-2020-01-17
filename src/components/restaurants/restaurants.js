@@ -1,33 +1,32 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
-import Restaurant, {RestaurantProps} from '../restaurant'
+import Restaurant from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
-import {connect} from 'react-redux'
-import {selectRestaurantList} from '../../store/selectors'
+import {connect, useDispatch, useSelector} from 'react-redux'
+import {selectRestaurantList, selectRestaurantId} from '../../store/selectors'
+import {changeRestaurant} from '../../store/action-creators'
 
 function Restaurants(props) {
-  const [currentId, setCurrentId] = useState(props.restaurants[0].id)
+  const dispatch = useDispatch()
+  const handleRestaurantChange = useCallback(
+    id => dispatch(changeRestaurant(id)),
+    [dispatch]
+  )
+  const restaurantId = useSelector(state => selectRestaurantId(state))
 
-  const restaurant = useMemo(() => {
-    return props.restaurants.find(restaurant => restaurant.id === currentId)
-  }, [currentId, props.restaurants])
-
-  const handleRestaurantChange = useCallback(id => setCurrentId(id), [
-    setCurrentId,
-  ])
   return (
     <div>
       <RestaurantsNavigation
         restaurants={props.restaurants}
         onRestaurantChange={handleRestaurantChange}
       />
-      <Restaurant restaurant={restaurant} />
+      <Restaurant id={restaurantId} />
     </div>
   )
 }
 
 Restaurants.propTypes = {
-  restaurants: PropTypes.arrayOf(PropTypes.shape(RestaurantProps.restaurant)),
+  restaurants: PropTypes.arrayOf(PropTypes.object),
 }
 
 const mapStateToProps = state => ({

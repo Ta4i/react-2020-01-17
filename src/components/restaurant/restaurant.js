@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Dishes from '../dishes'
-// import AverageRating from '../average-rating'
+import AverageRating from '../average-rating'
 import Reviews from '../reviews'
 import Hero from '../hero'
 import styles from './restaurant.module.css'
 import {Col, Row} from 'antd'
 import Order from '../order'
+import {selectRestaurant} from '../../store/selectors'
+import {connect} from 'react-redux'
 
 export const RestaurantProps = {
   restaurant: PropTypes.shape({
@@ -33,9 +35,12 @@ class Restaurant extends Component {
     const {
       restaurant: {name, menu, reviews},
     } = this.props
+
     return (
       <div data-automation-id="RESTAURANT_CONTAINER">
-        <Hero heading={name}>{/*<AverageRating reviews={reviews} />*/}</Hero>
+        <Hero heading={name}>
+          <AverageRating reviews={reviews} />
+        </Hero>
         <Row>
           <Col span={18} className={styles.restaurantContent}>
             <Reviews reviews={reviews} />
@@ -50,4 +55,10 @@ class Restaurant extends Component {
   }
 }
 
-export default Restaurant
+const mapStateToProps = (state, ownProps) => {
+  return {
+    restaurant: selectRestaurant(state, ownProps),
+  }
+}
+
+export default connect(mapStateToProps)(Restaurant)

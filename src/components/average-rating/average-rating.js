@@ -1,27 +1,25 @@
-import React, {useMemo} from 'react'
+import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {Rate} from 'antd'
+import {useSelector} from 'react-redux'
+import {selectAverageRating} from '../../store/selectors'
 
-function AverageRating({reviews}) {
-  const rawRating = useMemo(
-    () => reviews.reduce((acc, {rating}) => acc + rating, 0) / reviews.length,
-    [reviews]
+function AverageRating(props) {
+  const ratingMemo = useCallback(
+    state => selectAverageRating(state, {ids: props.reviews}),
+    [props]
   )
+  const rating = useSelector(ratingMemo)
 
-  const normalizedRating = Math.floor(rawRating * 2) / 2
   return (
     <div>
-      <Rate value={normalizedRating} disabled allowHalf />
+      <Rate value={rating} disabled allowHalf />
     </div>
   )
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      rating: PropTypes.number,
-    })
-  ).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default AverageRating
