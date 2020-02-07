@@ -27,11 +27,13 @@ export const selectAmountFromCart = createSelector(
 export const selectCartInfo = createSelector(
   selectCart,
   selectRestaurantList,
-  (cart, restaurants) => {
+  selectDishes,
+  (cart, restaurants, dishes) => {
     const orderedDishes = restaurants.reduce(
       (result, restaurant) => {
-        restaurant.menu.forEach(dish => {
-          const amount = cart[dish.id]
+        restaurant.menu.forEach(dishId => {
+          const dish = dishes[dishId]
+          const amount = cart[dishId]
           if (amount) {
             const totalDishPrice = amount * dish.price
             result.totalPrice += totalDishPrice
@@ -54,4 +56,33 @@ export const selectCartInfo = createSelector(
       orderedDishes,
     }
   }
+)
+
+export const selectUsers = state => state.users
+
+export const selectReviews = state => state.reviews
+
+export const selectReview = createSelector(
+  selectReviews,
+  selectId,
+  selectUsers,
+  (reviews, id, users) => {
+    const review = reviews[id]
+    return {
+      ...review,
+      user: users[review.userId].name,
+    }
+  }
+)
+
+export const selectRestaurantReviewIds = (state, props) => props.reviews
+
+export const selectAvgRating = createSelector(
+  selectReviews,
+  selectRestaurantReviewIds,
+  (allReviews, restaurantReviewIds) =>
+    restaurantReviewIds.reduce(
+      (acc, reviewId) => acc + allReviews[reviewId].rating,
+      0
+    ) / restaurantReviewIds.length
 )
