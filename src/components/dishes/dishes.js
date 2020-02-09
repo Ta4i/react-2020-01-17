@@ -3,39 +3,46 @@ import Dish from '../dish'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchDishes} from '../../store/action-creators'
-import {selectDishes} from '../../store/selectors'
+import {selectDishesLoaded} from '../../store/selectors'
+import Loader from '../loader'
 
 class Dishes extends Component {
   componentDidMount() {
-    this.props.fetchDishes && this.props.fetchDishes()
+    const {fetchDishes} = this.props
+    fetchDishes && fetchDishes()
   }
 
   render() {
     const {menu, dishesLoaded} = this.props
-    if (!dishesLoaded) {
-      return <h1>Loading dishes...</h1>
-    }
+
     return (
       <div>
-        {menu.map(dishId => (
-          <Dish key={dishId} id={dishId} />
-        ))}
+        {dishesLoaded ? (
+          menu.map(dishId => <Dish key={dishId} id={dishId} />)
+        ) : (
+          <Loader tip="Loading dishes" size="large" />
+        )}
       </div>
     )
   }
 }
 
 export const DishesPropTypes = {
+  // passed
   menu: PropTypes.arrayOf(PropTypes.string),
+  // connect
+  dishesLoaded: PropTypes.bool,
+  fetchDishes: PropTypes.func,
 }
 
 Dishes.propTypes = DishesPropTypes
 
-export default connect(
-  state => ({
-    dishesLoaded: selectDishes(state).length > 0,
-  }),
-  {
-    fetchDishes,
-  }
-)(Dishes)
+const mapStateToProps = state => ({
+  dishesLoaded: selectDishesLoaded(state),
+})
+
+const mapDispatchToProps = {
+  fetchDishes,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dishes)

@@ -4,20 +4,31 @@ import Review from './review'
 import {Col, Row} from 'antd'
 import ReviewForm from '../review-form'
 import {connect} from 'react-redux'
-import {selectReviews} from '../../store/selectors'
+import {
+  selectReviewsByRestaurant,
+  selectReviewsLoaded,
+} from '../../store/selectors'
+import {fetchReviews} from '../../store/action-creators'
+import Loader from '../loader'
 
 class Reviews extends Component {
-  static defaultProps = {
-    reviews: [],
+  componentDidMount() {
+    this.props.fetchReviews && this.props.fetchReviews()
   }
+
   render() {
-    const {reviews, id} = this.props
+    const {id, reviewsByRestaurant, reviewsLoaded} = this.props
+
     return (
       <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
         <Col xs={24} md={16}>
-          {reviews.map(review => (
-            <Review review={review} key={review.id} />
-          ))}
+          {reviewsLoaded ? (
+            reviewsByRestaurant.map(review => (
+              <Review review={review} key={review.id} />
+            ))
+          ) : (
+            <Loader size="large" tip="Loading reviews" />
+          )}
           <ReviewForm id={id} />
         </Col>
       </Row>
@@ -26,15 +37,27 @@ class Reviews extends Component {
 }
 
 export const ReviewsPropTypes = {
+  // passed
   id: PropTypes.string,
+  // connect
+  reviewsByRestaurant: PropTypes.object,
+  reviewsLoaded: PropTypes.bool,
+  fetchReviews: PropTypes.func,
 }
 
 Review.propTypes = ReviewsPropTypes
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    reviews: selectReviews(state, ownProps),
-  }
+Review.defaultProps = {
+  reviews: [],
 }
 
-export default connect(mapStateToProps)(Reviews)
+const mapStateToProps = (state, ownProps) => ({
+  reviewsByRestaurant: selectReviewsByRestaurant(state, ownProps),
+  reviewsLoaded: selectReviewsLoaded(state),
+})
+
+const mapDispatchToProps = {
+  fetchReviews,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews)

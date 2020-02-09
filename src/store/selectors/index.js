@@ -1,23 +1,58 @@
 import {createSelector} from 'reselect'
 
-export const selectRestaurants = state => state.restaurants
-
 export const selectCart = state => state.cart
-
-export const selectDishesMap = store => store.dishes
-
-export const selectReviewsMap = store => store.reviews.toJS()
-
-export const selectUsersMap = store => store.users
-
-export const selectUserList = createSelector(selectUsersMap, usersMap =>
-  Object.values(usersMap)
-)
 
 export const selectId = (_, ownProps) => ownProps.id
 
-export const selectDishes = createSelector(selectDishesMap, dishesMap =>
+// dishes
+export const selectDishesMap = store => store.dishes
+
+export const selectDishesList = createSelector(selectDishesMap, dishesMap =>
   Object.values(dishesMap)
+)
+export const selectDishesLoaded = createSelector(
+  selectDishesList,
+  dishesList => dishesList.length > 0
+)
+
+// reviews
+export const selectReviewsMap = store => store.reviews
+
+export const selectReviewsList = createSelector(selectReviewsMap, reviewsMap =>
+  Object.values(reviewsMap)
+)
+
+export const selectReviewsLoaded = createSelector(
+  selectReviewsList,
+  reviewsList => reviewsList.length > 0
+)
+
+// users
+export const selectUsersMap = store => store.users
+
+export const selectUsersList = createSelector(selectUsersMap, usersMap =>
+  Object.values(usersMap)
+)
+
+export const selectUsersLoaded = createSelector(
+  selectUsersList,
+  usersList => usersList.length > 0
+)
+
+export const selectUser = createSelector(
+  selectUsersMap,
+  selectId,
+  (users, id) => {
+    return users[id]
+  }
+)
+
+// restaurants
+export const selectRestaurants = state => state.restaurants
+
+export const selectRestaurantsLoaded = createSelector(
+  selectRestaurants,
+  restaurants => restaurants.length > 0
 )
 
 export const selectOrderedDishes = createSelector(
@@ -49,30 +84,30 @@ export const selectOrderedDishes = createSelector(
     )
 )
 
-export const selectUser = createSelector(
-  selectUsersMap,
-  selectId,
-  (users, id) => {
-    return users[id]
-  }
-)
-
-export const selectReviews = createSelector(
+export const selectReviewsByRestaurant = createSelector(
+  selectReviewsLoaded,
+  selectRestaurantsLoaded,
   selectReviewsMap,
   selectRestaurants,
   selectId,
-  (reviews, restaurants, id) => {
+  (reviewsLoaded, restaurantsLoaded, reviewsMap, restaurants, id) => {
+    if (!reviewsLoaded || !restaurantsLoaded) {
+      return []
+    }
     const restaurant = restaurants.find(item => item.id === id)
     return restaurant
-      ? restaurant.reviews.map(reviewId => reviews[reviewId])
+      ? restaurant.reviews.map(reviewId => reviewsMap[reviewId])
       : []
   }
 )
 
-export const selectAverageRating = createSelector(selectReviews, reviews => {
-  const rawRating =
-    reviews.reduce((acc, {rating}) => {
-      return acc + rating
-    }, 0) / reviews.length
-  return Math.floor(rawRating * 2) / 2
-})
+export const selectAverageRating = createSelector(
+  selectReviewsByRestaurant,
+  reviews => {
+    const rawRating =
+      reviews.reduce((acc, {rating}) => {
+        return acc + rating
+      }, 0) / reviews.length
+    return Math.floor(rawRating * 2) / 2
+  }
+)
