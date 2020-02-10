@@ -5,12 +5,29 @@ import AverageRating from '../average-rating'
 import Reviews from '../reviews'
 import Hero from '../hero'
 import styles from './restaurant.module.css'
-import {Col, Row} from 'antd'
+import {Col, Row, Spin, Icon} from 'antd'
 import Cart from '../cart'
+import {connect} from 'react-redux'
+import {
+  selectDishes,
+  selectReviews,
+  selectUserList,
+} from '../../store/selectors'
+import {
+  fetchDishes,
+  fetchReviews,
+  fetchUsers,
+} from '../../store/action-creators'
 
 class Restaurant extends Component {
   state = {
     error: null,
+  }
+
+  componentDidMount() {
+    this.props.fetchDishes && this.props.fetchDishes()
+    this.props.fetchReviews && this.props.fetchReviews()
+    this.props.fetchUsers && this.props.fetchUsers()
   }
 
   componentDidCatch(error, errorInfo) {
@@ -20,7 +37,20 @@ class Restaurant extends Component {
   render() {
     const {
       restaurant: {id, name, menu},
+      dishesLoaded,
+      reviewsLoaded,
+      usersLoaded,
     } = this.props
+
+    if (!dishesLoaded || !reviewsLoaded || !usersLoaded) {
+      const antIcon = <Icon type="loading" style={{fontSize: 48}} spin />
+      return (
+        <Row type="flex" justify="center" align="center">
+          <Spin size="large" indicator={antIcon} tip="Loading..."></Spin>
+        </Row>
+      )
+    }
+
     return (
       <div>
         <Hero heading={name}>
@@ -48,4 +78,15 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+export default connect(
+  (state, ownProps) => ({
+    dishesLoaded: selectDishes(state).length > 0,
+    reviewsLoaded: selectReviews(state, ownProps.restaurant).length > 0,
+    usersLoaded: selectUserList(state, ownProps).length > 0,
+  }),
+  {
+    fetchDishes,
+    fetchReviews,
+    fetchUsers,
+  }
+)(Restaurant)
