@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchDishes} from '../../store/action-creators'
 import {selectDishes} from '../../store/selectors'
+import {Row, Spin} from 'antd'
 
 class Dishes extends Component {
   componentDidMount() {
@@ -13,7 +14,11 @@ class Dishes extends Component {
   render() {
     const {menu, dishesLoaded} = this.props
     if (!dishesLoaded) {
-      return <h1>Loading dishes...</h1>
+      return (
+        <Row type="flex" justify="center">
+          <Spin size="large" />
+        </Row>
+      )
     }
     return (
       <div>
