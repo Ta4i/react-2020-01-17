@@ -6,7 +6,7 @@ export const selectCart = state => state.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews.toJS()
+export const selectReviewsMap = store => store.reviews
 
 export const selectUsersMap = store => store.users
 
@@ -63,7 +63,7 @@ export const selectReviews = createSelector(
   selectId,
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
-    return restaurant
+    return restaurant && Object.values(reviews).length > 0
       ? restaurant.reviews.map(reviewId => reviews[reviewId])
       : []
   }
