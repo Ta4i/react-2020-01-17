@@ -1,9 +1,10 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import Restaurant from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
 import {connect} from 'react-redux'
 import {selectRestaurants} from '../../store/selectors'
 import {fetchRestaurants} from '../../store/action-creators'
+import {Row, Spin} from 'antd'
 
 function Restaurants(props) {
   const [currentId, setCurrentId] = useState(null)
@@ -27,7 +28,11 @@ function Restaurants(props) {
   }, [props.restaurants.length])
 
   if (props.restaurants.length === 0 || !currentId) {
-    return <h1>Loading...</h1>
+    return (
+      <Row type="flex" justify="center">
+        <Spin size="large" />
+      </Row>
+    )
   }
 
   return (
