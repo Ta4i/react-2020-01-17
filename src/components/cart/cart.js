@@ -2,6 +2,7 @@ import Button from 'antd/es/button'
 import cx from 'classnames'
 import React from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import {useHistory} from 'react-router-dom'
 
 import styles from './cart.module.css'
 import CartRow from './cart-row'
@@ -12,9 +13,15 @@ import {selectOrderedDishes} from '../../store/selectors'
 
 function Cart({className, orderedDishes}) {
   const {dishes, totalPrice} = orderedDishes
+  const history = useHistory()
+  const handleOrderClick = () => {
+    history.push('/cart')
+  }
+
   if (dishes.length === 0) {
     return null
   }
+
   return (
     <div className={cx(styles.cart, className)}>
       <TransitionGroup>
@@ -38,7 +45,7 @@ function Cart({className, orderedDishes}) {
       <CartRow leftContent={'Sub-total'} rightContent={`${totalPrice} $`} />
       <CartRow leftContent={'Delivery costs'} rightContent="FREE" />
       <CartRow leftContent={'Total'} rightContent={`${totalPrice} $`} />
-      <Button type="primary" size="large" block>
+      <Button type="primary" size="large" block onClick={handleOrderClick}>
         Order
       </Button>
     </div>
