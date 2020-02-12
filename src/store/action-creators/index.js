@@ -9,6 +9,7 @@ import {
   FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
+  CLEAR_CART,
   START,
   SUCCESS,
 } from '../common'
@@ -39,6 +40,15 @@ export const removeFromCart = dishId => {
     type: REMOVE_FROM_CART,
     payload: {
       id: dishId,
+    },
+  }
+}
+export const clearCart = dishesId => {
+  console.log('clear cart action')
+  return {
+    type: CLEAR_CART,
+    payload: {
+      dishesId: dishesId,
     },
   }
 }

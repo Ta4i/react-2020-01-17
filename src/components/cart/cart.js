@@ -1,7 +1,7 @@
-import Button from 'antd/es/button'
 import cx from 'classnames'
 import React from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import {Link} from 'react-router-dom'
 
 import styles from './cart.module.css'
 import CartRow from './cart-row'
@@ -38,9 +38,9 @@ function Cart({className, orderedDishes}) {
       <CartRow leftContent={'Sub-total'} rightContent={`${totalPrice} $`} />
       <CartRow leftContent={'Delivery costs'} rightContent="FREE" />
       <CartRow leftContent={'Total'} rightContent={`${totalPrice} $`} />
-      <Button type="primary" size="large" block>
+      <Link className={styles.orderButton} to={'/order'}>
         Order
-      </Button>
+      </Link>
     </div>
   )
 }
