@@ -1,6 +1,7 @@
 import {
   ADD_REVIEW,
   ADD_TO_CART,
+  CLEAR_CART,
   DECREMENT,
   FAIL,
   FETCH_DISHES,
@@ -40,6 +41,12 @@ export const removeFromCart = dishId => {
     payload: {
       id: dishId,
     },
+  }
+}
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART,
   }
 }
 

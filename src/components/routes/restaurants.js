@@ -1,7 +1,7 @@
 import React from 'react'
 import Restaurants from '../restaurants/restaurants'
 
-function RestaurantsPage(props) {
+function RestaurantsPage() {
   return <Restaurants />
 }
 
