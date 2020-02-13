@@ -9,11 +9,14 @@ import CartItem from './cart-item'
 import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
+import {NavLink, useLocation} from 'react-router-dom'
 
 function Cart({className, orderedDishes}) {
   const {dishes, totalPrice} = orderedDishes
+  const location = useLocation()
+  const isCartPage = location.pathname === '/cart'
   if (dishes.length === 0) {
-    return null
+    return isCartPage ? <h1>No items in cart</h1> : null
   }
   return (
     <div className={cx(styles.cart, className)}>
@@ -38,9 +41,11 @@ function Cart({className, orderedDishes}) {
       <CartRow leftContent={'Sub-total'} rightContent={`${totalPrice} $`} />
       <CartRow leftContent={'Delivery costs'} rightContent="FREE" />
       <CartRow leftContent={'Total'} rightContent={`${totalPrice} $`} />
-      <Button type="primary" size="large" block>
-        Order
-      </Button>
+      <NavLink to={'/cart'}>
+        <Button type="primary" size="large" block>
+          {isCartPage ? 'Send Order' : 'Order'}
+        </Button>
+      </NavLink>
     </div>
   )
 }
