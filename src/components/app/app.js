@@ -8,6 +8,8 @@ import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import CounterPage from '../routes/counter'
 import RestaurantsPage from '../routes/restaurants'
+import OrderPage from '../routes/order'
+import OrderCompletePage from '../routes/order-complete'
 
 class App extends Component {
   render() {
@@ -27,6 +29,16 @@ class App extends Component {
                     path={'/restaurant/:currentId'}
                     exact
                     render={props => <RestaurantsPage />}
+                  />
+                  <Route
+                    path={'/order'}
+                    exact
+                    render={props => <OrderPage />}
+                  />
+                  <Route
+                    path={'/order/complete'}
+                    exact
+                    render={() => <OrderCompletePage />}
                   />
                   <Route path={'/'} render={() => <h1>Page Not Found</h1>} />
                 </Switch>
