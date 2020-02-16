@@ -10,8 +10,9 @@ import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
 import {NavLink} from 'react-router-dom'
+import withTranslation from '../../decorators/withTranslation'
 
-function Cart({className, orderedDishes}) {
+function Cart({t, className, orderedDishes}) {
   const {dishes, totalPrice} = orderedDishes
   if (dishes.length === 0) {
     return null
@@ -37,20 +38,22 @@ function Cart({className, orderedDishes}) {
       </TransitionGroup>
       <hr />
 
-      <CartRow leftContent={'Sub-total'} rightContent={`${totalPrice} $`} />
-      <CartRow leftContent={'Delivery costs'} rightContent="FREE" />
-      <CartRow leftContent={'Total'} rightContent={`${totalPrice} $`} />
+      <CartRow leftContent={t['subTotal']} rightContent={`${totalPrice} $`} />
+      <CartRow leftContent={t['deliveryCosts']} rightContent="FREE" />
+      <CartRow leftContent={t['total']} rightContent={`${totalPrice} $`} />
       <NavLink to={'/order'} activeStyle={{display: 'none'}}>
         <Button type="primary" size="large" block>
-          Order
+          {t['order']}
         </Button>
       </NavLink>
     </div>
   )
 }
 
-export default connect(state => {
-  return {
-    orderedDishes: selectOrderedDishes(state),
-  }
-})(Cart)
+export default withTranslation(
+  connect(state => {
+    return {
+      orderedDishes: selectOrderedDishes(state),
+    }
+  })(Cart)
+)
