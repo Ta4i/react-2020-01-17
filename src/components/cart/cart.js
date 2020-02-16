@@ -1,8 +1,7 @@
 import Button from 'antd/es/button'
 import cx from 'classnames'
-import React from 'react'
+import React, {useContext, useMemo} from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
-
 import styles from './cart.module.css'
 import CartRow from './cart-row'
 import CartItem from './cart-item'
@@ -10,13 +9,18 @@ import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
 import {NavLink} from 'react-router-dom'
+import LanguageContext from '../../contexts/language'
+import translations from '../../translations/components/cart'
 
 function Cart({className, orderedDishes}) {
   const {dishes, totalPrice} = orderedDishes
+  const {locale} = useContext(LanguageContext)
+  const localizedContent = useMemo(() => translations[locale], [locale])
+
   if (dishes.length === 0) {
     return null
   }
-  console.log('Cart render')
+
   return (
     <div className={cx(styles.cart, className)}>
       <TransitionGroup>
@@ -37,12 +41,21 @@ function Cart({className, orderedDishes}) {
       </TransitionGroup>
       <hr />
 
-      <CartRow leftContent={'Sub-total'} rightContent={`${totalPrice} $`} />
-      <CartRow leftContent={'Delivery costs'} rightContent="FREE" />
-      <CartRow leftContent={'Total'} rightContent={`${totalPrice} $`} />
+      <CartRow
+        leftContent={localizedContent.subTotal}
+        rightContent={`${totalPrice} $`}
+      />
+      <CartRow
+        leftContent={localizedContent.deliveryCosts}
+        rightContent={localizedContent.free}
+      />
+      <CartRow
+        leftContent={localizedContent.total}
+        rightContent={`${totalPrice} $`}
+      />
       <NavLink to={'/order'} activeStyle={{display: 'none'}}>
         <Button type="primary" size="large" block>
-          Order
+          {localizedContent.order}
         </Button>
       </NavLink>
     </div>

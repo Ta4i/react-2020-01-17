@@ -3,6 +3,8 @@ import {Input, Button, Form} from 'antd'
 import {connect} from 'react-redux'
 import {sendOrder} from '../../store/action-creators'
 import {Consumer} from '../../contexts/user'
+import {withLanguageContext} from '../../contexts/language'
+import translations from '../../translations/components/order-form'
 
 class OrderForm extends Component {
   state = {
@@ -10,20 +12,23 @@ class OrderForm extends Component {
   }
 
   render() {
+    const {languageContext} = this.props
+    const {locale} = languageContext
+    const localizedContent = translations[locale]
+
     return (
       <Form
         layout={'inline'}
         style={{padding: '24px'}}
         onSubmit={this.handleSubmit}
       >
-        <h1 ref={this.setRefForSomeHTMLElement}>{'Form'}</h1>
+        <h1>{localizedContent.submitOrder}</h1>
         <Form.Item>
           <Consumer>
             {({name, handleUserChange}) => {
               return (
                 <Input
-                  ref={this.setInput}
-                  placeholder={'User name'}
+                  placeholder={localizedContent.userName}
                   value={name}
                   onChange={event => {
                     handleUserChange({
@@ -39,7 +44,7 @@ class OrderForm extends Component {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            {'Send order'}
+            {localizedContent.sendOrder}
           </Button>
         </Form.Item>
       </Form>
@@ -52,18 +57,10 @@ class OrderForm extends Component {
     })
   }
 
-  setRefForSomeHTMLElement = ref => {
-    this.someHTMLElement = ref
-  }
-
-  setInput = ref => {
-    this.userNameInput = ref
-  }
-
   handleSubmit = event => {
     event.preventDefault()
     this.props.sendOrder(this.state)
   }
 }
 
-export default connect(null, {sendOrder})(OrderForm)
+export default withLanguageContext(connect(null, {sendOrder})(OrderForm))

@@ -1,0 +1,13 @@
+.language {
+  float: left;
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+
+.select {
+  width: 65px;
+}
+
+.option {
+  text-transform: uppercase;
+}

@@ -1,11 +1,12 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
-import React, {useState} from 'react'
+import React, {useState, useContext, useMemo} from 'react'
 import useInput from '../../custom-hooks/use-input'
 import cx from 'classnames'
-
 import styles from './review-form.module.css'
 import {useDispatch} from 'react-redux'
 import {addReview} from '../../store/action-creators'
+import translations from '../../translations/components/review-form'
+import LanguageContext from '../../contexts/language'
 
 const ReviewForm = ({id}) => {
   const [rating, setRating] = useState(0)
@@ -18,30 +19,28 @@ const ReviewForm = ({id}) => {
     resetText()
     setRating(null)
   }
+
   const handleSubmit = ev => {
     ev.preventDefault()
     dispatch(addReview(name, +rating, text, id))
     resetForm()
   }
 
-  const handleNameChange = setName
-
-  const handleTextChange = setText
-
-  const handleRatingChange = setRating
+  const {locale} = useContext(LanguageContext)
+  const localizedContent = useMemo(() => translations[locale], [locale])
 
   return (
     <Card className={styles.reviewForm}>
       <Row type="flex" align="middle">
         <Col xs={24} md={18} align="left">
           <Typography.Title className={styles.addReviewTitle} level={4}>
-            Leave your review
+            {localizedContent.title}
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
             <Input
               value={name}
-              onChange={handleNameChange}
-              placeholder="Your name"
+              onChange={setName}
+              placeholder={localizedContent.namePlaceHolder}
               className={cx(
                 {
                   [styles.invalid]: !isValidName,
@@ -51,7 +50,7 @@ const ReviewForm = ({id}) => {
             />
             <Input.TextArea
               value={text}
-              onChange={handleTextChange}
+              onChange={setText}
               rows={3}
               size="large"
               className={cx({
@@ -59,10 +58,11 @@ const ReviewForm = ({id}) => {
               })}
             />
             <div>
-              Rating: <Rate value={rating} onChange={handleRatingChange} />
+              {localizedContent.rating}:{' '}
+              <Rate value={rating} onChange={setRating} />
             </div>
             <Button htmlType="submit" className={styles.submitButton}>
-              PUBLISH REVIEW
+              {localizedContent.publishReview}
             </Button>
           </Form>
         </Col>
