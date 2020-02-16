@@ -1,7 +1,8 @@
 import React from 'react'
 import {Consumer as UserConsumer} from '../contexts/user'
+import translaterDecorator from '../decorators/translater'
 
-function OrderComplete() {
+function OrderComplete({dictionary}) {
   return (
     <h1
       style={{
@@ -9,7 +10,9 @@ function OrderComplete() {
         padding: '128px 0',
       }}
     >
-      <UserConsumer>{user => 'Thanks, ' + user.name}</UserConsumer>
+      <UserConsumer>
+        {user => dictionary.THANKS + ', ' + user.name}
+      </UserConsumer>
       <span
         role={'img'}
         aria-label={'cook'}
@@ -23,4 +26,4 @@ function OrderComplete() {
   )
 }
 
-export default OrderComplete
+export default translaterDecorator(OrderComplete)

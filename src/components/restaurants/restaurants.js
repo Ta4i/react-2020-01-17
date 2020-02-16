@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import Restaurant from '../restaurant'
 import RestaurantsNavigation from '../restaurants-navigation'
-import {connect, useDispatch} from 'react-redux'
+import {connect} from 'react-redux'
 import {
   selectRestaurants,
   selectRestaurantsLoaded,
@@ -16,15 +16,15 @@ function Restaurants({
   restaurantsLoading,
   restaurantsLoaded,
   fetchRestaurants,
+  validateRestaurant,
 }) {
-  const dispatch = useDispatch()
   useEffect(() => {
     !restaurantsLoading && !restaurantsLoaded && fetchRestaurants()
   }, [fetchRestaurants, restaurantsLoading, restaurantsLoaded])
 
   useEffect(() => {
-    dispatch(validateRestaurant(restaurantId))
-  }, [restaurantsLoaded, restaurantId, dispatch])
+    validateRestaurant(restaurantId)
+  }, [restaurantsLoaded, restaurantId, validateRestaurant])
 
   if (restaurantsLoading) {
     return <Loader />

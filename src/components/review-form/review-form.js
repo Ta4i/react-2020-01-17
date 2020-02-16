@@ -6,8 +6,9 @@ import cx from 'classnames'
 import styles from './review-form.module.css'
 import {useDispatch} from 'react-redux'
 import {addReview} from '../../store/action-creators'
+import translaterDecorator from '../../decorators/translater'
 
-const ReviewForm = ({id}) => {
+const ReviewForm = ({id, dictionary}) => {
   const [rating, setRating] = useState(0)
   const [name, setName, isValidName, resetName] = useInput()
   const [text, setText, isValidText, resetText] = useInput()
@@ -35,13 +36,13 @@ const ReviewForm = ({id}) => {
       <Row type="flex" align="middle">
         <Col xs={24} md={18} align="left">
           <Typography.Title className={styles.addReviewTitle} level={4}>
-            Leave your review
+            {dictionary.LEAVE_YOUR_REVIEW}
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
             <Input
               value={name}
               onChange={handleNameChange}
-              placeholder="Your name"
+              placeholder={dictionary.YOUR_NAME}
               className={cx(
                 {
                   [styles.invalid]: !isValidName,
@@ -59,10 +60,11 @@ const ReviewForm = ({id}) => {
               })}
             />
             <div>
-              Rating: <Rate value={rating} onChange={handleRatingChange} />
+              {dictionary.RATING}:{' '}
+              <Rate value={rating} onChange={handleRatingChange} />
             </div>
             <Button htmlType="submit" className={styles.submitButton}>
-              PUBLISH REVIEW
+              {dictionary.PUBLISH_REVIEW.toUpperCase()}
             </Button>
           </Form>
         </Col>
@@ -71,4 +73,4 @@ const ReviewForm = ({id}) => {
   )
 }
 
-export default ReviewForm
+export default translaterDecorator(ReviewForm)

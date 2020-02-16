@@ -3,6 +3,7 @@ import {Input, Button, Form} from 'antd'
 import {connect} from 'react-redux'
 import {sendOrder} from '../../store/action-creators'
 import {Consumer} from '../../contexts/user'
+import translaterDecorator from '../../decorators/translater'
 
 class OrderForm extends Component {
   state = {
@@ -23,7 +24,7 @@ class OrderForm extends Component {
               return (
                 <Input
                   ref={this.setInput}
-                  placeholder={'User name'}
+                  placeholder={this.props.dictionary.YOUR_NAME}
                   value={name}
                   onChange={event => {
                     handleUserChange({
@@ -39,7 +40,7 @@ class OrderForm extends Component {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            {'Send order'}
+            {this.props.dictionary.SEND_ORDER}
           </Button>
         </Form.Item>
       </Form>
@@ -66,4 +67,4 @@ class OrderForm extends Component {
   }
 }
 
-export default connect(null, {sendOrder})(OrderForm)
+export default connect(null, {sendOrder})(translaterDecorator(OrderForm))
