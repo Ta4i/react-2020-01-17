@@ -13,6 +13,10 @@ class Restaurant extends Component {
     error: null,
   }
 
+  static propTypes = {
+    restaurant: PropTypes.object.isRequired,
+  }
+
   componentDidCatch(error, errorInfo) {
     this.setState({error})
   }
@@ -24,6 +28,7 @@ class Restaurant extends Component {
     const {
       restaurant: {id, name, menu},
     } = this.props
+
     return (
       <div>
         <Hero heading={name}>
